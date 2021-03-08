@@ -20,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_update.view.*
 
 class UpdateFragment : Fragment() {
 
+    // getting all the arguments
+    // Note: this also contains our User Object that we passed from the adapter
     private val args by navArgs<UpdateFragmentArgs>()
 
     private val mUserViewModel: UserViewModel by viewModels()
@@ -29,13 +31,16 @@ class UpdateFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_update, container, false)
 
+        // setting the edit text via the args
         view.editFirstName.setText(args.currentUser.firstName)
         view.editLastName.setText(args.currentUser.lastName)
         view.editAge.setText(args.currentUser.age.toString())
+
         view.updateButton.setOnClickListener {
             updateItem()
         }
 
+        // for menu
         setHasOptionsMenu(true)
 
         return view
@@ -51,6 +56,7 @@ class UpdateFragment : Fragment() {
             // Update the User
             mUserViewModel.updateUser(updatedUser)
             Snackbar.make(requireView(), "Updated Successfully", Snackbar.LENGTH_SHORT).show()
+            // close keyboard and navigate back
             closeKeyboard()
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         } else {
@@ -89,6 +95,7 @@ class UpdateFragment : Fragment() {
 
         builder.setPositiveButton("Yes"){
             _, _ ->
+            // passing the current user object to delete
             mUserViewModel.deleteUser(args.currentUser)
             Snackbar.make(requireView(), "Successfully removed ${args.currentUser.firstName}", Snackbar.LENGTH_SHORT).show()
             closeKeyboard()

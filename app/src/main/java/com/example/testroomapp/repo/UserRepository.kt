@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import com.example.testroomapp.dao.UserDao
 import com.example.testroomapp.data.User
 
+// This class implements the methods from the UserDao interface
+// Note: All Suspend functions must be called in coroutines
 class UserRepository(private val userDao: UserDao) {
     val readAllData: LiveData<List<User>> = userDao.readAllData()
 

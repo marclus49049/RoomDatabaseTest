@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.testroomapp.data.User
 
+// Interface that has all the database logic
+// All CURD operations are declared here
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE) // if same user then ignore it

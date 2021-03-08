@@ -14,7 +14,9 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
+    // Getting the instance of viewModel
     private val mUserViewModel: UserViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +30,7 @@ class ListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+        // Adding observer on the List of all the data
         mUserViewModel.readAllData.observe(viewLifecycleOwner, Observer { user ->
             adapter.setData(user)
         })
@@ -36,6 +39,7 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
+        // For Menu
         setHasOptionsMenu(true)
 
         return view

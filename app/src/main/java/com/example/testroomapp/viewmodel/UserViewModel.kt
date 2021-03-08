@@ -10,14 +10,20 @@ import com.example.testroomapp.repo.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+// User View Model
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
     val readAllData: LiveData<List<User>>
     private val repository: UserRepository
 
+    // first methods that runs when a object is created
     init {
+        // getting the database instance and then getting the UserDao object
         val userDao = UserDatabase.getDatabase(application).userDao()
+        // passing the UserDao object to UserRepository
         repository = UserRepository(userDao)
+        // Reading all the data
+        // Note: We have also implemented an observe in the AddFragment so if there are any changes here it will update that recyclerview
         readAllData = repository.readAllData
     }
 
