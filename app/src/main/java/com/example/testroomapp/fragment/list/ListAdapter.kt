@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.menu.ActionMenuItemView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.testroomapp.R
 import com.example.testroomapp.data.User
@@ -28,6 +29,11 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
             firstName.text = currentItem.firstName
             lastName.text = currentItem.lastName
             age.text = currentItem.age.toString()
+
+            rowLayout.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(currentItem)
+                findNavController().navigate(action)
+            }
         }
     }
 
